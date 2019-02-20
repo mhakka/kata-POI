@@ -2,36 +2,40 @@ package com.mha.poi.service.impl;
 
 import com.mha.poi.model.Area;
 import com.mha.poi.model.POI;
+import com.mha.poi.repository.POIRepository;
 import java.util.List;
 import com.mha.poi.service.POIService;
+import com.mha.poi.utils.TechnicalException;
+import com.mha.poi.utils.Utils;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.stream.Collectors;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
+@Service
 public class POIServiceImpl implements POIService {
+    
+    @Autowired
+    POIRepository POIRepository;
 
     @Override
-    public long getNbrPOIsOfArea(List<POI> inputPOIs, Area area) {
-        return inputPOIs.stream().filter(p -> isThePositionInTheArea(p, area)).count();
+    public long getNbrPOIsOfArea(Area area) throws TechnicalException{
+        return POIRepository.getAllPOIs().stream().filter(p -> isThePositionInTheArea(p, area)).count();
     }
 
     private boolean isThePositionInTheArea(POI position, Area area) {
+        return Utils.isFloatValueInTheRange(position.getLatitude(), area.getMinLatitude(), area.getMaxLatitude())
+                && Utils.isFloatValueInTheRange(position.getLongitude(), area.getMinLogitude(), area.getMaxLongitude());
 
-        return isTheValueInTheRange(position.getLatitude(), area.getMinLatitude(), area.getMaxLatitude())
-                && isTheValueInTheRange(position.getLongitude(), area.getMinLogitude(), area.getMaxLongitude());
-
-    }
-
-    private boolean isTheValueInTheRange(float value, float minValueInclusive, float maxValueInclusive) {
-        return (value >= minValueInclusive && value <= maxValueInclusive);
     }
 
     @Override
-    public List<Area> getDensestAreas(List<POI> inputPOIs, int limit) {
+    public List<Area> getDensestAreas(int limit) throws TechnicalException{
         List<Area> result = new ArrayList<>();
-        inputPOIs.forEach(poi -> {
+        POIRepository.getAllPOIs().forEach(poi -> {
             Set<Area> areas = getAreasOfPOI(poi);
             areas.forEach(area -> {
                 Area addedArea = result.stream().filter(a -> a.equals(area))

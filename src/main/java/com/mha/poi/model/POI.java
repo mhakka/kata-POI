@@ -36,5 +36,10 @@ public class POI {
     public void setLatitude(float latitude) {
         this.latitude = latitude;
     }
+
+    @Override
+    public String toString() {
+        return "POI{" + "id=" + id + ", longitude=" + longitude + ", latitude=" + latitude + '}';
+    }
  
 }

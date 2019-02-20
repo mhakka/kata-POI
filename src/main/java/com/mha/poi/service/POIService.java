@@ -1,14 +1,14 @@
 package com.mha.poi.service;
 
 import com.mha.poi.model.Area;
-import com.mha.poi.model.POI;
+import com.mha.poi.utils.TechnicalException;
 import java.util.List;
 
 
 public interface POIService {
     
-    public long getNbrPOIsOfArea(List<POI> inputPOIs, Area area);
+    public long getNbrPOIsOfArea(Area area) throws TechnicalException;
     
-    public List<Area> getDensestAreas(List<POI> inputPOIs, int limit);
+    public List<Area> getDensestAreas(int limit) throws TechnicalException;
     
 }
