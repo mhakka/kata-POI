@@ -23,7 +23,7 @@ public class POIServiceImpl implements POIService {
 
     @Override
     public long getNbrPOIsOfArea(Area area) throws TechnicalException{
-        return POIRepository.getAllPOIs().stream().filter(p -> isThePositionInTheArea(p, area)).count();
+        return POIRepository.getAllPOIs().filter(p -> isThePositionInTheArea(p, area)).count();
     }
 
     private boolean isThePositionInTheArea(POI position, Area area) {

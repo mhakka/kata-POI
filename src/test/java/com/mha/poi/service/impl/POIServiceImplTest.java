@@ -36,7 +36,7 @@ public class POIServiceImplTest {
         inputPOIs.add(new POI("id7", -0.1F,  0.1F));
         inputPOIs.add(new POI("id8", 38.1F,  -2.1F));
         
-        Mockito.when(POIRepositoryMock.getAllPOIs()).thenReturn(inputPOIs);
+        Mockito.when(POIRepositoryMock.getAllPOIs()).thenReturn(inputPOIs.stream());
     }
 
     /**
