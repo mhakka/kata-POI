@@ -5,7 +5,6 @@ import com.mha.poi.model.POI;
 import com.mha.poi.repository.POIRepository;
 import java.util.List;
 import com.mha.poi.service.POIService;
-import com.mha.poi.utils.TechnicalException;
 import com.mha.poi.utils.Utils;
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -17,12 +16,12 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class POIServiceImpl implements POIService {
-    
+
     @Autowired
     POIRepository POIRepository;
 
     @Override
-    public long getNbrPOIsOfArea(Area area) throws TechnicalException{
+    public long getNbrPOIsOfArea(Area area) {
         return POIRepository.getAllPOIs().filter(p -> isThePositionInTheArea(p, area)).count();
     }
 
@@ -33,7 +32,7 @@ public class POIServiceImpl implements POIService {
     }
 
     @Override
-    public List<Area> getDensestAreas(int limit) throws TechnicalException{
+    public List<Area> getDensestAreas(int limit) {
         List<Area> result = new ArrayList<>();
         POIRepository.getAllPOIs().forEach(poi -> {
             Set<Area> areas = getAreasOfPOI(poi);

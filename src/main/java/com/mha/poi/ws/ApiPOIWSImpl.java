@@ -2,7 +2,6 @@ package com.mha.poi.ws;
 
 import com.mha.poi.model.Area;
 import com.mha.poi.service.POIService;
-import com.mha.poi.utils.TechnicalException;
 import com.mha.poi.utils.Utils;
 import java.io.IOException;
 import java.util.List;
@@ -30,7 +29,7 @@ public class ApiPOIWSImpl {
             @RequestParam("area_minlat") Float areaMinLat,
             @RequestParam("area_maxlat") Float areaMaxLat,
             @RequestParam("area_minlon") Float areaMinlon,
-            @RequestParam("area_maxlon") Float areaMaxLon) throws TechnicalException {
+            @RequestParam("area_maxlon") Float areaMaxLon) {
 
         //Parameters validation 
         if (areaMinLat == null
@@ -55,7 +54,7 @@ public class ApiPOIWSImpl {
     }
 
     @RequestMapping(value = "/poiapi/densestareas", method = GET)
-    public List<Area> getDensestAreas(@RequestParam("limit") Integer limit) throws TechnicalException {
+    public List<Area> getDensestAreas(@RequestParam("limit") Integer limit) {
         if (limit == null) {
             throw new IllegalArgumentException("The 'limit' parameter must not be empty");
         }
