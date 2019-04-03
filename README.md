@@ -1,3 +1,5 @@
+This KATA is about implementing a Point of Interest service, exposed by a REST API and based on a Spring Boot technical stack
+
 ## Run the application
 To run the application, execute:
 
